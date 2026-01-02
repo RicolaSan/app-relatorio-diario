@@ -12,7 +12,7 @@ load_dotenv()
 st.set_page_config(page_title="Report Diário", page_icon="📝", layout="centered")
 
 # --- Gerenciador de Cookies ---
-@st.cache_resource(experimental_allow_widgets=True)
+# Removido o cache para evitar o erro de widgets
 def get_manager():
     return stx.CookieManager()
 
