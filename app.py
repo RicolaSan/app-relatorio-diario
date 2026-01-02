@@ -42,6 +42,22 @@ st.markdown("""
             box-shadow: 0 6px 8px -1px rgba(16, 185, 129, 0.5);
         }
 
+        /* Hack para trocar o texto "Take Photo" para "Tirar Foto" */
+        div[data-testid="stCameraInput"] button {
+            color: transparent !important;
+            position: relative;
+        }
+        div[data-testid="stCameraInput"] button::after {
+            content: "📷 Tirar Foto";
+            color: #31333f;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
 
         /* Melhorar inputs de texto */
         .stTextInput input, .stTextArea textarea {
