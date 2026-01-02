@@ -7,7 +7,38 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuração da página para modo mobile
-st.set_page_config(page_title="Report Diário", page_icon="�", layout="centered")
+st.set_page_config(page_title="Report Diário", page_icon="📝", layout="centered")
+
+# --- Lógica de Login ---
+if 'logado' not in st.session_state:
+    st.session_state['logado'] = False
+
+if not st.session_state['logado']:
+    st.title("🔒 Acesso Restrito")
+    st.markdown("Por favor, faça login para continuar.")
+    
+    with st.form("login_form"):
+        usuario = st.text_input("Usuário", placeholder="Digite seu usuário")
+        senha = st.text_input("Senha (4 dígitos)", type="password", max_chars=4, placeholder="****")
+        submit_login = st.form_submit_button("Entrar 🔓")
+        
+        if submit_login:
+            # Exemplo de validação simples (Pode ser alterado depois)
+            if usuario == "admin" and senha == "1234":
+                st.session_state['logado'] = True
+                st.toast("Login realizado com sucesso!")
+                st.rerun()
+            else:
+                st.error("❌ Usuário ou senha incorretos.")
+    
+    st.info("💡 Dica: Usuário padrão 'admin' e senha '1234'")
+    st.stop() # Interrompe a execução do restante do app até logar
+
+# Botão de Logout (Opcional, no topo ou sidebar)
+if st.sidebar.button("Sair 🚪"):
+    st.session_state['logado'] = False
+    st.rerun()
+# -----------------------
 
 # Estilização CSS personalizada para visual elegante e compacto
 st.markdown("""
