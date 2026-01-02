@@ -59,6 +59,34 @@ st.markdown("""
             white-space: nowrap;
         }
 
+        /* Hack para trocar o texto "Drag and drop file here" para Português */
+        section[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] p {
+            font-size: 0;
+        }
+        section[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] p::after {
+            content: "Arraste e solte uma imagem aqui";
+            font-size: 1rem;
+            visibility: visible;
+        }
+        section[data-testid="stFileUploader"] button {
+            color: transparent !important;
+            position: relative;
+        }
+        section[data-testid="stFileUploader"] button::after {
+            content: "Buscar Arquivo";
+            color: #31333f;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: normal;
+            white-space: nowrap;
+        }
+        section[data-testid="stFileUploader"] small {
+            display: none;
+        }
+        
         /* Melhorar inputs de texto */
         .stTextInput input, .stTextArea textarea {
             border-radius: 10px;
