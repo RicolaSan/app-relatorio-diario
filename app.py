@@ -14,25 +14,54 @@ if 'logado' not in st.session_state:
     st.session_state['logado'] = False
 
 if not st.session_state['logado']:
-    st.title("🔒 Acesso Restrito")
-    st.markdown("Por favor, faça login para continuar.")
+    # Injeta CSS específico para a tela de login ficar compacta e centralizada
+    st.markdown("""
+        <style>
+            .stApp {
+                background-color: #f0f2f6;
+            }
+            [data-testid="stForm"] {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 15px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            .login-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            .login-header h1 {
+                font-size: 1.8rem;
+                color: #1f2937;
+                margin: 0;
+            }
+            .login-header p {
+                color: #6b7280;
+                font-size: 0.9rem;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Container centralizado verticalmente (simulação visual)
+    st.markdown('<div class="login-header"><h1>🔒 Acesso</h1><p>Identifique-se para continuar</p></div>', unsafe_allow_html=True)
     
     with st.form("login_form"):
-        usuario = st.text_input("Usuário", placeholder="Digite seu usuário")
-        senha = st.text_input("Senha (4 dígitos)", type="password", max_chars=4, placeholder="****")
-        submit_login = st.form_submit_button("Entrar 🔓")
+        usuario = st.text_input("Usuário", placeholder="Seu usuário")
+        senha = st.text_input("Senha", type="password", max_chars=4, placeholder="****")
+        
+        st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
+        submit_login = st.form_submit_button("Entrar", use_container_width=True)
         
         if submit_login:
-            # Exemplo de validação simples (Pode ser alterado depois)
             if usuario == "admin" and senha == "1234":
                 st.session_state['logado'] = True
-                st.toast("Login realizado com sucesso!")
                 st.rerun()
             else:
-                st.error("❌ Usuário ou senha incorretos.")
+                st.error("❌ Dados incorretos")
     
-    st.info("💡 Dica: Usuário padrão 'admin' e senha '1234'")
-    st.stop() # Interrompe a execução do restante do app até logar
+    st.stop()
 
 # Botão de Logout (Opcional, no topo ou sidebar)
 if st.sidebar.button("Sair 🚪"):
