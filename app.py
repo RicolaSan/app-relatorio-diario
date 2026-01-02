@@ -13,30 +13,44 @@ st.set_page_config(page_title="Report Diário", page_icon="�", layout="centere
 st.markdown("""
     <style>
         .block-container {
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-            max-width: 600px;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+            max-width: 500px;
         }
         h1 {
-            font-size: 1.8rem !important;
+            font-size: 1.6rem !important;
             text-align: center;
-            color: #2c3e50;
+            color: #1f2937;
+            margin-bottom: 1rem;
         }
+        
+        /* Estilo do botão de Enviar (Verde e largo) */
         .stButton>button {
             width: 100%;
-            border-radius: 20px;
-            height: 3em;
-            font-weight: bold;
-            background-color: #28a745;
+            border-radius: 25px;
+            height: 3.5em;
+            font-weight: 600;
+            background-color: #10b981; /* Verde esmeralda moderno */
             color: white;
             border: none;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);
+            transition: all 0.2s;
         }
         .stButton>button:hover {
-            background-color: #218838;
-            color: white;
+            background-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px -1px rgba(16, 185, 129, 0.5);
         }
-        .css-1544g2n {
-            padding: 1rem 0;
+
+
+        /* Melhorar inputs de texto */
+        .stTextInput input, .stTextArea textarea {
+            border-radius: 10px;
+            border: 1px solid #d1d5db;
+        }
+        .stTextInput input:focus, .stTextArea textarea:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 1px #10b981;
         }
     </style>
 """, unsafe_allow_html=True)
