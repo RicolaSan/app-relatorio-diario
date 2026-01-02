@@ -43,11 +43,11 @@ st.markdown("""
         }
 
         /* Hack para trocar o texto "Take Photo" para "Tirar Foto" */
-        div[data-testid="stCameraInput"] button {
+        div[data-testid="stCameraInput"] button[aria-label="Take photo"] {
             color: transparent !important;
             position: relative;
         }
-        div[data-testid="stCameraInput"] button::after {
+        div[data-testid="stCameraInput"] button[aria-label="Take photo"]::after {
             content: "📷 Tirar Foto";
             color: #31333f;
             position: absolute;
