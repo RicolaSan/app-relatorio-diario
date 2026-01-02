@@ -91,8 +91,10 @@ metodo = st.segmented_control("Capturar Imagem", ["📸 Câmera", "📁 Galeria"
 
 foto = None
 if metodo == "📸 Câmera":
+    st.caption("Qualidade padrão do navegador.")
     foto = st.camera_input("Tire a foto", label_visibility="collapsed")
 else:
+    st.caption("Use para fotos da galeria ou câmera nativa (Melhor qualidade).")
     foto = st.file_uploader("Selecione a imagem", type=['png', 'jpg', 'jpeg'], label_visibility="collapsed")
 
 if foto:
