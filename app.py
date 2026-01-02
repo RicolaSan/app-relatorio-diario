@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import extra_streamlit_components as stx
 import datetime
+import time
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -14,7 +15,7 @@ st.set_page_config(page_title="Report Diário", page_icon="📝", layout="center
 # --- Gerenciador de Cookies ---
 # Removido o cache para evitar o erro de widgets
 def get_manager():
-    return stx.CookieManager()
+    return stx.CookieManager(key="cookie_manager_app")
 
 cookie_manager = get_manager()
 
@@ -75,6 +76,7 @@ if not st.session_state['logado']:
                 # Salva cookie válido por 30 dias
                 expires = datetime.datetime.now() + datetime.timedelta(days=30)
                 cookie_manager.set("auth_token", "valid_token_1234", expires=expires)
+                time.sleep(0.5) # Aguarda sincronização do cookie antes do rerun
                 st.rerun()
             else:
                 st.error("❌ Dados incorretos")
