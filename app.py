@@ -60,32 +60,66 @@ st.markdown("""
         }
 
         /* Hack para trocar o texto "Drag and drop file here" para Português */
-        section[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] p {
-            font-size: 0;
+        [data-testid='stFileUploader'] {
+            width: 100%;
         }
-        section[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] p::after {
-            content: "Arraste e solte uma imagem aqui";
-            font-size: 1rem;
-            visibility: visible;
+        [data-testid='stFileUploader'] section {
+            padding: 0;
         }
-        section[data-testid="stFileUploader"] button {
-            color: transparent !important;
-            position: relative;
-        }
-        section[data-testid="stFileUploader"] button::after {
-            content: "Buscar Arquivo";
-            color: #31333f;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14px;
-            font-weight: normal;
-            white-space: nowrap;
-        }
-        section[data-testid="stFileUploader"] small {
+        [data-testid='stFileUploader'] section > input + div {
             display: none;
         }
+        /* Texto principal "Drag and drop..." */
+        [data-testid='stFileUploader'] section > div:first-child > div:first-child {
+            color: transparent;
+        }
+        [data-testid='stFileUploader'] section > div:first-child > div:first-child::after {
+            content: "📂 Arraste uma imagem ou clique para selecionar";
+            color: #31333f;
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        /* Botão "Browse files" */
+        [data-testid='stFileUploader'] section button {
+            display: none; /* Esconde o botão original se possível ou sobrepoe */
+        }
+        /* Texto de limite "Limit 200MB..." */
+        [data-testid='stFileUploader'] section small {
+            display: none;
+        }
+        
+        /* Força bruta para o texto se a estrutura variar */
+        .st-emotion-cache-1ft DCP { display: none; } 
+        
+        /* Novo estilo para a área de upload completa */
+        [data-testid='stFileUploader'] section {
+            min-height: 100px;
+        }
+        
+        /* Botão Browse Files - Redefinindo visualmente */
+        [data-testid='stFileUploader'] button {
+            visibility: hidden; /* Esconde o botão original mas mantem layout */
+            position: relative;
+        }
+        [data-testid='stFileUploader'] button::after {
+            content: "Procurar Arquivo";
+            visibility: visible;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f0f2f6;
+            color: #31333f;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
         
         /* Melhorar inputs de texto */
         .stTextInput input, .stTextArea textarea {
