@@ -75,7 +75,7 @@ if not st.session_state['logado']:
                 st.session_state['logado'] = True
                 # Salva cookie válido por 30 dias
                 expires = datetime.datetime.now() + datetime.timedelta(days=30)
-                cookie_manager.set("auth_token", "valid_token_1234", expires=expires)
+                cookie_manager.set("auth_token", "valid_token_1234", expires_at=expires)
                 time.sleep(0.5) # Aguarda sincronização do cookie antes do rerun
                 st.rerun()
             else:
