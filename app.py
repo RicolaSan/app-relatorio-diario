@@ -2,6 +2,8 @@ import streamlit as st
 from email_utils import enviar_relatorio
 import os
 from dotenv import load_dotenv
+import extra_streamlit_components as stx
+import datetime
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -9,9 +11,22 @@ load_dotenv()
 # Configuração da página para modo mobile
 st.set_page_config(page_title="Report Diário", page_icon="📝", layout="centered")
 
+# --- Gerenciador de Cookies ---
+@st.cache_resource(experimental_allow_widgets=True)
+def get_manager():
+    return stx.CookieManager()
+
+cookie_manager = get_manager()
+
 # --- Lógica de Login ---
 if 'logado' not in st.session_state:
     st.session_state['logado'] = False
+
+# Tenta recuperar sessão via cookie se ainda não estiver logado
+if not st.session_state['logado']:
+    cookie_token = cookie_manager.get(cookie="auth_token")
+    if cookie_token == "valid_token_1234":
+        st.session_state['logado'] = True
 
 if not st.session_state['logado']:
     # Injeta CSS específico para a tela de login ficar compacta e centralizada
@@ -57,6 +72,9 @@ if not st.session_state['logado']:
         if submit_login:
             if usuario == "admin" and senha == "1234":
                 st.session_state['logado'] = True
+                # Salva cookie válido por 30 dias
+                expires = datetime.datetime.now() + datetime.timedelta(days=30)
+                cookie_manager.set("auth_token", "valid_token_1234", expires=expires)
                 st.rerun()
             else:
                 st.error("❌ Dados incorretos")
@@ -66,6 +84,7 @@ if not st.session_state['logado']:
 # Botão de Logout (Opcional, no topo ou sidebar)
 if st.sidebar.button("Sair 🚪"):
     st.session_state['logado'] = False
+    cookie_manager.delete("auth_token")
     st.rerun()
 # -----------------------
 
