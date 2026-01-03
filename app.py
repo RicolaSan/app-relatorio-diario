@@ -23,6 +23,9 @@ cookie_manager = get_manager()
 if 'logado' not in st.session_state:
     st.session_state['logado'] = False
 
+if 'reset_counter' not in st.session_state:
+    st.session_state['reset_counter'] = 0
+
 # Tenta recuperar sessão via cookie se ainda não estiver logado
 if not st.session_state['logado']:
     cookie_token = cookie_manager.get(cookie="auth_token")
@@ -173,10 +176,10 @@ metodo = st.segmented_control("Capturar Imagem", ["📸 Câmera", "📁 Galeria"
 foto = None
 if metodo == "📸 Câmera":
     st.caption("Qualidade padrão do navegador.")
-    foto = st.camera_input("Tire a foto", label_visibility="collapsed")
+    foto = st.camera_input("Tire a foto", label_visibility="collapsed", key=f"camera_{st.session_state['reset_counter']}")
 else:
     st.caption("Use para fotos da galeria ou câmera nativa (Melhor qualidade).")
-    foto = st.file_uploader("Selecione a imagem", type=['png', 'jpg', 'jpeg'], label_visibility="collapsed")
+    foto = st.file_uploader("Selecione a imagem", type=['png', 'jpg', 'jpeg'], label_visibility="collapsed", key=f"uploader_{st.session_state['reset_counter']}")
 
 if foto:
     st.markdown("---")
@@ -202,5 +205,8 @@ if foto:
                     if sucesso:
                         st.balloons()
                         st.success("Enviado com sucesso!")
+                        time.sleep(2)
+                        st.session_state['reset_counter'] += 1
+                        st.rerun()
                     else:
                         st.error(f"Erro: {msg}")
