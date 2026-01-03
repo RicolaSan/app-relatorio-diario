@@ -64,14 +64,14 @@ if not st.session_state['logado']:
     st.markdown('<div class="login-header"><h1>🔒 Acesso</h1><p>Identifique-se para continuar</p></div>', unsafe_allow_html=True)
     
     with st.form("login_form"):
-        usuario = st.text_input("Usuário", placeholder="Seu usuário")
-        senha = st.text_input("Senha", type="password", max_chars=4, placeholder="****")
+        st.markdown('<p style="text-align:center;color:#666;">Digite a senha de acesso</p>', unsafe_allow_html=True)
+        senha = st.text_input("Senha", type="password", max_chars=4, placeholder="****", label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
         submit_login = st.form_submit_button("Entrar", use_container_width=True)
         
         if submit_login:
-            if usuario == "admin" and senha == "1234":
+            if senha == "1234":
                 st.session_state['logado'] = True
                 # Salva cookie válido por 30 dias
                 expires = datetime.datetime.now() + datetime.timedelta(days=30)
@@ -79,7 +79,7 @@ if not st.session_state['logado']:
                 time.sleep(0.5) # Aguarda sincronização do cookie antes do rerun
                 st.rerun()
             else:
-                st.error("❌ Dados incorretos")
+                st.error("❌ Senha incorreta")
     
     st.stop()
 
