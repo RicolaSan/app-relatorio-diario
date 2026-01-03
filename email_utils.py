@@ -14,6 +14,12 @@ def enviar_relatorio(email_supervisor, titulo, descricao, imagem_bytes, email_re
     msg['From'] = email_remetente
     msg['To'] = email_supervisor
 
+    # Preparar lista de destinatários (suporta múltiplos emails separados por vírgula)
+    if ',' in email_supervisor:
+        destinatarios = [e.strip() for e in email_supervisor.split(',')]
+    else:
+        destinatarios = [email_supervisor]
+
     # Corpo do email
     texto = f"""
     Olá,
@@ -41,7 +47,7 @@ def enviar_relatorio(email_supervisor, titulo, descricao, imagem_bytes, email_re
             server.starttls(context=context) # Atualiza conexão para segura
             server.ehlo() # Reidentificação após segurança
             server.login(email_remetente, senha_remetente)
-            server.sendmail(email_remetente, email_supervisor, msg.as_string())
+            server.sendmail(email_remetente, destinatarios, msg.as_string())
         return True, "Email enviado com sucesso!"
     except Exception as e:
         return False, f"Erro ao enviar email: {str(e)}"
