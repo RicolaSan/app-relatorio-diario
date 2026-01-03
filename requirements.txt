@@ -1,4 +1,3 @@
 streamlit
 python-dotenv
 secure-smtplib
-extra-streamlit-components
