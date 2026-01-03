@@ -3,14 +3,13 @@ import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
-import os
 
 def enviar_relatorio(email_supervisor, titulo, descricao, imagem_bytes, email_remetente, senha_remetente):
     """
     Envia um email com o relatório e a foto anexada.
     """
     msg = MIMEMultipart()
-    msg['Subject'] = f"Relatório: {titulo}"
+    msg['Subject'] = f"Ocorrência: {titulo}"
     msg['From'] = email_remetente
     msg['To'] = email_supervisor
 
@@ -24,18 +23,18 @@ def enviar_relatorio(email_supervisor, titulo, descricao, imagem_bytes, email_re
     texto = f"""
     Olá,
 
-    Segue novo relatório de atividade da equipe.
+    Segue novo relatório de Atendimento da equipe CPD 888.
 
     Título: {titulo}
     Descrição: {descricao}
 
-    A foto da atividade está anexada.
+    A foto do atendimento está anexada.
     """
     msg.attach(MIMEText(texto, 'plain'))
 
     # Anexar a imagem
     if imagem_bytes:
-        image = MIMEImage(imagem_bytes.read(), name="atividade.jpg")
+        image = MIMEImage(imagem_bytes.read(), name="atendimento.jpg")
         msg.attach(image)
 
     # Enviar email via Gmail (usando porta 587 - TLS, que evita bloqueios de firewall)
