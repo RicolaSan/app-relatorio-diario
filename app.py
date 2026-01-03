@@ -68,13 +68,13 @@ if not st.session_state['logado']:
     
     with st.form("login_form"):
         st.markdown('<p style="text-align:center;color:#666;">Digite a senha de acesso</p>', unsafe_allow_html=True)
-        senha = st.text_input("Senha", type="password", max_chars=4, placeholder="****", label_visibility="collapsed")
+        senha = st.text_input("Senha", type="password", max_chars=8, placeholder="****", label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True) # Espaçamento
         submit_login = st.form_submit_button("Entrar", use_container_width=True)
         
         if submit_login:
-            if senha == "1234":
+            if senha == "12345678":
                 st.session_state['logado'] = True
                 # Salva cookie válido por 30 dias
                 expires = datetime.datetime.now() + datetime.timedelta(days=30)
