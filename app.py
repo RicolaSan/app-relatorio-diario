@@ -83,11 +83,11 @@ if not st.session_state['logado']:
     
     st.stop()
 
-# Botão de Logout (Opcional, no topo ou sidebar)
-if st.sidebar.button("Sair 🚪"):
-    st.session_state['logado'] = False
-    cookie_manager.delete("auth_token")
-    st.rerun()
+# Botão de Logout removido conforme solicitado
+# if st.sidebar.button("Sair 🚪"):
+#    st.session_state['logado'] = False
+#    cookie_manager.delete("auth_token")
+#    st.rerun()
 # -----------------------
 
 # Estilização CSS personalizada para visual elegante e compacto
